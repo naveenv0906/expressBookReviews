@@ -12,7 +12,8 @@ public_users.get('/', async function (req, res) {
     const response = await axios.get('http://localhost:5000/');
     return res.status(200).json(response.data);
   } catch (error) {
-    return res.status(200).json({ books: books });
+    // FIXED: Return books directly, not wrapped in { books: books }
+    return res.status(200).json(books);
   }
 });
 
@@ -47,7 +48,7 @@ public_users.get('/author/:author', async function (req, res) {
       }
     }
     if (booksByAuthor.length > 0) {
-      return res.status(200).json({ books: booksByAuthor });
+      return res.status(200).json(booksByAuthor);
     } else {
       return res.status(404).json({ message: "No books found for this author" });
     }
